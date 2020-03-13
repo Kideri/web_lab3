@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+   <h:outputStylesheet name="main.css" library="css"/>
+   <h:outputStylesheet name="beauty.css" library="css"/>
+   <h:outputScript name="jquery-3.3.1.js" library="js"/>
+   <h:outputScript name="graphManager.js" library="js"/>
+   <title>Лабораторная работа N3</title>
+</h:head>
+<h:body onload="redraw();">
+   <f:view>
+
+
+      <header>
+         <h1>Терновой Даниил Дмитриевич P3213</h1>
+         <h2>Вариант: 143298</h2>
+      </header>
+
+      <div class="block">
+         <h:form id="myForm">
+            <div id="informdiv">
+            <p:remoteCommand name="sendClick"
+                          action="#{controller.onClickPoint()}" process="@this" update="result-table"/>
+            <p:remoteCommand name="callRedraw"
+                          action="#{controller.callRedraw()}" process="@this"/>
+            <div class="informal">
+               <div id="canvasdiv">
+            <canvas height="360px" width="360px" id="zoneCanvas" title="График" />
+            <h:outputScript name="mouseListner.js" library="js"/>
+
+         </div >
+         <div class="selectors_block">
+            <div>
+               <div class="param_l_align">X</div>
+               <div>
+                  <h:selectOneRadio value="#{controller.x}" layout="pageDirection">
+                     <f:selectItem itemValue="-2" itemLabel="-2" /> <br />
+                     <f:selectItem itemValue="-1.5" itemLabel="-1.5" /> <br />
+                     <f:selectItem itemValue="-1" itemLabel="-1" /> <br />
+                     <f:selectItem itemValue="-0.5" itemLabel="-0.5" /> <br />
+                     <f:selectItem itemValue="0" itemLabel="0" /> <br />
+                     <f:selectItem itemValue="0.5" itemLabel="0.5" /> <br />
+                     <f:selectItem itemValue="1" itemLabel="1" /> <br />
+                     <f:selectItem itemValue="1.5" itemLabel="1.5" /> <br />
+                     <f:selectItem itemValue="2" itemLabel="2" />
+                  </h:selectOneRadio>
+               </div>
+               <div class="param_r_align">X</div>
+            </div>
+
+            <div>
+               <div class="param_l_align">Y</div>
+               <div>
+                  <h:inputText id="param-y" name="param-y" required="true" styleClass="inputy" validatorMessage="Неверное значение y[-5;3]" maxlength="20" requiredMessage="введите значение" value="#{controller.curY}">
+                     <f:validateDoubleRange minimum="-5" maximum="3" />
+                  </h:inputText>
+                  <h:message for="param-y" style="color:red"/>
+               </div>
+               <div class="param_r_align">Y</div>
+            </div>
+
+            <div>
+               <div class="param_l_align">R</div>
+               <div>
+                  <h:inputText id="param-r" name="param-r" required="true" styleClass="inputy" validatorMessage="Неверное значение r[1;4]" maxlength="20" onchange="redraw();" requiredMessage="введите значение" value="#{controller.curR}">
+                     <f:validateDoubleRange minimum="1" maximum="4" />
+                  </h:inputText>
+                  <h:message for="param-r" style="color:red"/>
+               </div>
+               <div class="param_r_align">R</div>
+            </div>
+            </div>
+               <h:commandButton value="Отправить" outcome="work" styleClass="link-go" action="#{controller.onRecievedPoints()}"/>
+               <h:commandButton value="Назад" outcome="main" styleClass="link-go" action="main"/>
+            </div>
+            <div id="tablediv">
+            <h:dataTable value="#{controller.allResults}" var="res"
+                         styleClass="article-table"
+                         rules="all" id="result-table" name="result-table"
+                         headerClass="mytableheader"
+            >
+               <h:column styleClass="header_id">
+                  <f:facet name="header" >ID</f:facet>
+                  #{res.id}
+               </h:column>
+               <h:column styleClass="header_values">
+                  <f:facet name="header">X</f:facet>
+                  #{res.x}
+               </h:column>
+               <h:column styleClass="header_values">
+                  <f:facet name="header">Y </f:facet>
+                  #{res.y}
+               </h:column>
+               <h:column styleClass="header_id">
+                  <f:facet name="header" >R</f:facet>
+                  #{res.r}
+               </h:column>
+               <h:column styleClass="header_res">
+                  <f:facet name="header">Попадание</f:facet>
+                  #{res.match}
+               </h:column>
+               <h:column styleClass="header_id">
+                  <f:facet name="header">Удалить точку</f:facet>
+                  <h:commandButton type="submit"
+                                   value="Х"
+                                   action="#{controller.onRemovePoint(res)}"
+                                   styleClass="link-go"
+                                   form="myForm"
+                  />
+               </h:column>
+            </h:dataTable>
+
+         </div>
+            </div>
+         </h:form>
+      </div>
+
+
+   </f:view>
+</h:body>
+</html>

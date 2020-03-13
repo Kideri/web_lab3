@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet name="main.css" library="css"/>
+    <h:outputStylesheet name="beauty.css" library="css"/>
+    <title>Лабораторная работа N3</title>
+</h:head>
+<h:body>
+    <f:view>
+
+
+        <header>
+            <h1>Терновой Даниил Дмитриевич P3213</h1>
+            <h2>Вариант: 143298</h2>
+        </header>
+
+        <div class="block" id="block_main">
+            <div id="myclocks">
+                Welcome !</div>
+
+            <h:outputScript name="index.js" library="js"/>
+            <h:form >
+            <h:inputText id="param-id" name="param-id" required="true" styleClass="inputid" maxlength="20" requiredMessage="введите значение" value="#{controller.curLogin}">
+            </h:inputText><br/>
+            <h:message for="param-id" style="color:red"/><br/>
+            <h:commandButton value="Вход" outcome="work" styleClass="link-go" action="#{controller.onLogin(controller.curLogin)}"/>
+            </h:form>
+        </div>
+
+    </f:view>
+</h:body>
+</html>

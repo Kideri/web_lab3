@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    font: 13pt sans-serif;
+    height: fit-content;
+    padding: 25px 70px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+table {
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+#res_table {
+    color: black;
+    background-color: white;
+    margin: 35px auto;
+    min-width: 900px;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.header_id{
+    min-width: 50px;
+}
+.header_values{
+    min-width: 70px;
+}
+.header_values{
+    min-width: 90px;
+}
+.mytableheader{
+    min-width: 50px;
+}
+thead {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.tableBodyScroll tbody {
+    display: block;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.tableBodyScroll thead, .tableBodyScroll tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#zoneCanvas{
+    min-height: 360px !important;
+}
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+#res_table td {
+    text-align: center;
+    padding: 15px 5px;
+}
+
+form div.informal{
+    color: #ffffff;
+    background-color: #212121;
+    border: #1f2030 2px solid;
+    padding: 10px;
+    margin: 10px 10%;
+    width: fit-content;
+    min-width: 300px;
+}
+
+.block {
+    background: #fafafa;
+    margin: 40px auto;
+    max-width: 1200px;
+    text-align: center;
+    height: fit-content;
+    min-height: 100px;
+    padding: 20px auto;
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+#error-message {
+    color: crimson;
+    font-size: 20px;
+}
+#canvasdiv{
+    background: white;
+}
+.invalid_field {
+    background-color: lightcoral;
+}
+
+/*Селектор класса*/
+.valid_field {
+    background-color: aquamarine;
+}
+
+/*Селектор потомства*/
+.block canvas {
+    margin: 10px 10px 10px 10px;
+    border: 2px solid #1f2030;
+}
+#block_main{
+    max-width: 450px !important;
+    height: 200px;
+}
+#myclocks{
+    padding-top: 20px;
+}
+.inputid{
+    margin-top: 20px;
+}
+:visited {
+    color: #883997;
+}
+
+a {
+    background-color: white;
+    color: #f9a825;
+}
+
+
+/*Селектор элемета*/
+label {
+    user-select: none;
+}
+
+.flex {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Наследование*/
+iframe {
+    border: inherit;
+    width: 100%;
+}
+
+embed {
+    border: inherit;
+    width: 100%;
+}
+
+/*Прелюдия*/
+input {
+    margin: 3% 1%;
+    width: 90px;
+}
+
+
+/*Селектор атрибутов*/
+input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+}
+
+input[type=submit] {
+    border-radius: 20px;
+}
+
+
+input[type=text] {
+    width: 62%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/*Селектора идентификатора*/
+#submit {
+    margin-top: 5%;
+}
+#informdiv{
+    display: flex;
+    flex-flow: row-reverse;
+    align-items: center;
+}
+#tablediv{
+    color: black;
+    height: 500px;
+    overflow: auto;
+}
+html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.selectors_block{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.selectors_block>div{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.selectors_block div{
+    width: 90%;
+}
+.selectors_block div.param_l_align{
+    text-align: left;
+    width: 5% !important;
+    align-items: center;
+}
+
+.selectors_block div.param_r_align{
+    text-align: right;
+    width: 5% !important;
+    align-items: center;
+}

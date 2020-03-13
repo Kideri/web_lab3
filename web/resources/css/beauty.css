@@ -1,0 +1,33 @@
+.white_box {
+  margin:auto;
+  background-color: transparent;
+  border: 0.1em solid #FFFFFF;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #FFFFFF;
+  height: fit-content;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.white_box:not(:disabled):hover {
+  color: #212121;
+  background-color: white;
+}
+.white_box:disabled {
+  border-color: transparent;
+  color: crimson;
+}
+.white_box:disabled:hover {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#error-message{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}

@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="pip3:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/pip3_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.faces-2.4.0.jar" path-in-jar="/" />
+          <element id="module-output" name="pepka3" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Mojarra-2.4.0" />
+          <element id="library" level="project" name="postgresql-42.2.8" />
+          <element id="library" level="project" name="ojdbc8-12.2.0.1" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="pepka3/web/Web" />
+    </root>
+  </artifact>
+</component>
