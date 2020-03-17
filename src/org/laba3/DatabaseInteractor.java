@@ -15,6 +15,7 @@
                 connection = DriverManager.getConnection(uri, user, password);
                 PreparedStatement statement = connection.prepareStatement(
                         "CREATE TABLE IF NOT EXISTS labuser (" +
+                                "id SERIAL PRIMARY KEY, " +
                                 "name VARCHAR NOT NULL)"
                 );
                 statement.execute();
@@ -36,7 +37,7 @@
         
         public int loadOrCreateUser(String name) throws SQLException{
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM labuser WHERE name = ?"
+                    "SELECT * FROM labuser WHERE name=?"
             );
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
@@ -47,19 +48,18 @@
             {
                 PreparedStatement statement2 = connection.prepareStatement(
                         "INSERT INTO labuser(name) " +
-                        "VALUES(?) " +
-                        "returning id",
-                        Statement.RETURN_GENERATED_KEYS
+                        "VALUES(?) "
                 );
                 statement2.setString(1,name);
-                statement2.execute();
+                statement2.executeUpdate();
                 PreparedStatement statement3 = connection.prepareStatement(
-                        "SELECT * FORM labuser WHERE name = ?"
+                        "SELECT * FORM labuser WHERE name=?"
                 );
                 statement3.setString(1, name);
                 ResultSet rs1 = statement3.executeQuery();
-                rs.next();
-                return rs.getInt("id");
+                if (rs.next())
+                    return rs.getInt("id");
+                return 0;
             }
 
         }
@@ -88,32 +88,48 @@
         }
 
         public Point insertPoint(int userid, double x, double y, double r) throws SQLException{
-                PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO labpoints(x, y, r, result, userid) " +
-                        "VALUES(?, ?, ?, ?, ?) returning pid",
-                        Statement.RETURN_GENERATED_KEYS
-                );
-                statement.setDouble(1, x);
-                statement.setDouble(2, y);
-                statement.setDouble(3, r);
-                Point p = new Point(x, y, r);
-                statement.setInt(4, p.getResult());
-                statement.setInt(5, userid);
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO labpoints(x, y, r, result, userid) " +
+                    "VALUES(?, ?, ?, ?, ?) returning pid",
+                    Statement.RETURN_GENERATED_KEYS
+            );
+            statement.setDouble(1, x);
+            statement.setDouble(2, y);
+            statement.setDouble(3, r);
+            Point p = new Point(x, y, r);
+            statement.setInt(4, p.getResult());
+            statement.setInt(5, userid);
 
-                int affectedRows = statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
 
-                if (affectedRows == 0) {
+            if (affectedRows == 0) {
+                throw new SQLException("Точка не удалена");
+            }
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    p.setId(generatedKeys.getInt(1));
+                }
+                else {
                     throw new SQLException("Точка не удалена");
                 }
-
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        p.setId(generatedKeys.getInt(1));
-                    }
-                    else {
-                        throw new SQLException("Точка не удалена");
-                    }
-                }
-                return p;
             }
+            return p;
+        }
+
+        public void updatePoint(Point p) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "UPDATE labpoints " +
+                        "SET result=?, r=? " +
+                        "WHERE pid=?"
+                );
+                statement.setInt(1, p.getResult());
+                statement.setDouble(2, p.getR());
+                statement.setInt(3, p.getId());
+                statement.executeUpdate();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }

@@ -108,6 +108,8 @@ public class Controller {
 
             for (Point e : data) {
                 PrimeFaces.current().executeScript(e.redrawFunction(r));
+                e.setR(r);
+                dbconn.updatePoint(e);
             }
         }
         catch(Exception e){
